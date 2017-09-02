@@ -1,0 +1,49 @@
+<div layout="columns" layout-fill>
+  <div flex class="content md-content">
+    <md-sidenav-container fullscreen class="td-layout-manage-list md-content">
+      <md-sidenav opened="true" align="start" mode="side" class="md-sidenav-left">
+        <div layout="column">
+          <div flex layout="column">
+            <div layout="row" layout-align="start center" class="draggable bgc-grey-900">
+              <span flex></span>
+              <button md-icon-button><md-icon>sort</md-icon></button>
+              <button md-icon-button><md-icon>settings</md-icon></button>
+              <button md-icon-button><md-icon>more_vert</md-icon></button>
+            </div>
+            <div flex layout="row">
+              <div flex layout="column" class="md-content">
+                <md-list>
+                  <div *ngFor="let snippet of snippets" (click)="selectSnippet(snippet)">
+                    <md-list-item>
+                      <span style="cursor: pointer">{{snippet.title}}</span>
+                    </md-list-item>
+                  </div>
+                </md-list>
+              </div>
+            </div>
+          </div>
+        </div>
+      </md-sidenav>
+      <div layout="column" flex layout-fill>
+        <div flex layout="column">
+          <div flex layout="column">
+            <div layout="row" layout-align="start center" class="draggable bgc-grey-900">
+              <span flex class="text-center md-caption">OpenSnippets</span>
+              <button md-icon-button (click)="preview.toggle()" mdTooltip="Toggle Preview" mdTooltipPosition="before"><md-icon>remove_red_eye</md-icon></button>
+              <button md-icon-button [mdMenuTriggerFor]="moreMenu"><md-icon>more_vert</md-icon></button>
+              <md-menu #moreMenu="mdMenu" x-position="before">
+                <button md-menu-item (click)="saveEditorValue(monaco)">Get Editor Content</button>
+                <button md-menu-item (click)="monaco.value = 'console.log()'">Set Content to console.log</button>
+                <button md-menu-item (click)="monaco.language = 'sql'">Set Editor language to SQL</button>
+                <button md-menu-item (click)="registerCustomLanguage(monaco)">Use custom Language</button>
+                <md-divider></md-divider>
+                <button md-menu-item> Settings </button>
+              </md-menu>
+            </div>
+            <td-code-editor #monaco theme="vs-dark" flex class="bgc-grey-900 overflow-hidden" editorStyle="border:0;"></td-code-editor>
+          </div>
+        </div>
+      </div>
+    </md-sidenav-container>
+  </div>
+</div>
